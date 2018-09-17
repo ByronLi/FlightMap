@@ -22,6 +22,20 @@ public class FlightMap {
         writer.write("Destination    Flight Route from P     Total Cost\n");
     }
 
+    /* Used for Testing
+     */
+    public String getOriginCity() {
+        return originCity;
+    }
+
+    public String getPath(String city){
+        return paths.get(city).toString();
+    }
+
+    public int getCosts(String city){
+        return totalCost.get(city);
+    }
+
     public void readInput(String filePath) throws FileNotFoundException, IOException {
         File f = new File(filePath);
 

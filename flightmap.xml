@@ -51,6 +51,11 @@
         <exclude name="**/?*.clj"/>
     </patternset>
 
+    <path id="classpath.test">
+        <pathelement location="lib/junit-4.10.jar"/>
+        <pathelement location="bin"/>
+    </path>
+
     <!-- JDK definitions -->
 
     <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
@@ -97,7 +102,7 @@
         <pathelement location="${javac2.home}/jdom.jar"/>
         <pathelement location="${javac2.home}/asm-all.jar"/>
         <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
-        <pathelement location="resources/junit-4.10.jar"/>
+        <pathelement location="lib/junit-4.10.jar"/>
     </path>
 
     <target name="register.custom.compilers">
@@ -121,7 +126,25 @@
         <jar destfile="bin/SearchMap.jar" basedir="bin"/>
 
     </target>
-    <target name="test">
+
+    <target name="test-compile" depends="compile">
+        <mkdir dir="bin/test"/>
+        <javac srcdir="test" destdir="bin/test" includeantruntime="false">
+            <classpath refid="classpath.test"/>
+        </javac>
+    </target>
+
+    <target name="test" depends="test-compile">
+        <junit printsummary="on" haltonfailure="yes" fork="true">
+            <classpath>
+                <path refid="classpath.test"/>
+                <pathelement location="bin/test"/>
+            </classpath>
+            <formatter type="brief" usefile="false" />
+            <batchtest>
+                <fileset dir="test" includes="**/Test**.java" />
+            </batchtest>
+        </junit>
 
 
     </target>
