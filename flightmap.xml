@@ -149,6 +149,24 @@
 
     </target>
 
+    <target name="doc">
+        <javadoc packagenames="*"
+                 sourcepath="src"
+                 defaultexcludes="yes"
+                 destdir="bin/doc"
+                 author="true"
+                 version="true"
+                 use="true"
+                 windowtitle="Test API">
+            <doctitle><![CDATA[<h1>FlightMap</h1>]]></doctitle>
+            <bottom><![CDATA[<i>Copyright &#169; 2018 Byron Li. All Rights Reserved.</i>]]></bottom>
+            <tag name="todo" scope="all" description="To do:"/>
+            <group title="FlightMap and SearchMap" packages="*"/>
+            <link offline="true" href="https://docs.oracle.com/javase/8/docs/api/" packagelistLoc="C:\tmp"/>
+            <link href="https://docs.oracle.com/javase/8/docs/api/"/>
+        </javadoc>
+    </target>
+
     <target name="init" description="Build initialization">
         <!-- Perform any build initialization in this target -->
         <mkdir dir="bin/dist/doc"/>
