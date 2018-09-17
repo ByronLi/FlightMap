@@ -12,6 +12,11 @@ public class FlightMap {
     String outputFile;
     BufferedWriter writer;
 
+    /**
+     * Constructor to instantiate maps and writer
+     * @param outputFile String specifying destination file to write flight paths & cost to
+     * @throws IOException
+     */
     public FlightMap(String outputFile) throws IOException{
         flightGraph = new HashMap<>();
         totalCost = new HashMap<>();
@@ -36,6 +41,12 @@ public class FlightMap {
         return totalCost.get(city);
     }
 
+    /**
+     * Function to process the input from file and parse into hashmap representing graph structure
+     * @param filePath String specifying input file path
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public void readInput(String filePath) throws FileNotFoundException, IOException {
         File f = new File(filePath);
 
@@ -66,6 +77,11 @@ public class FlightMap {
         br.close();
     }
 
+    /**
+     * Function to perform bfs on the hashmap structure, calling writeToFile upon discovering a new
+     * path from origin city. Uses a dynamic programming like method to retrieve paths and costs of each new city
+     *
+     */
     public void generatePaths(){
 
         Queue<String> bfs = new LinkedList<>();
@@ -120,6 +136,13 @@ public class FlightMap {
         }
     }
 
+    /**
+     * Function to write to file
+     * @param destination The destination city
+     * @param pathsToDestination Arraylist of all previous cities
+     * @param cost total cost
+     * @throws IOException
+     */
     public void writeToFile(String destination, ArrayList<String> pathsToDestination, int cost) throws IOException{
         System.out.print("Destination: " + destination + " Cost: " + cost);
         for (String city : pathsToDestination){
